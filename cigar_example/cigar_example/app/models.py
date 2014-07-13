@@ -1,9 +1,16 @@
 from django.db import models
 
 
+
 class Cigar(models.Model):
+    COLOUR_CHOICES = (
+        ("#f00", 'Red'),
+        ('#0f0', 'Green'),
+        ('#00f', 'Blue'),
+    )
+
     name = models.CharField(max_length=25, help_text='Cigar Name')
-    colour = models.CharField(max_length=30, default="Brown")
+    colour = models.CharField(max_length=30, choices = COLOUR_CHOICES, default="#0f0")
     gauge = models.IntegerField()
     length = models.IntegerField()
     price = models.DecimalField(decimal_places=2, max_digits=5)

@@ -226,8 +226,7 @@ class BaseMethodIntrospector(object):
                     'min': min_length,
                     'valueType': 'RANGE'
                 }
-
-            data.append({
+            field_data ={
                 'paramType': 'form',
                 'name': name,
                 'dataType': data_type,
@@ -235,7 +234,10 @@ class BaseMethodIntrospector(object):
                 'description': getattr(field, 'help_text', ''),
                 'defaultValue': get_resolved_value(field, 'default'),
                 'required': getattr(field, 'required', None)
-            })
+            }
+            if hasattr(field, 'choices'):
+                field_data['enum'] = [value for value, label in field.choices]
+            data.append(field_data)
 
         return data
 
